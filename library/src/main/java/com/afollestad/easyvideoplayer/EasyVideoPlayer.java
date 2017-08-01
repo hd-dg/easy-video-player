@@ -141,7 +141,7 @@ public class EasyVideoPlayer extends FrameLayout
   private int mThemeColor = 0;
   private boolean mAutoFullscreen = false;
   private boolean mLoop = false;
-  private int mScaleMode = 1;
+  private int mScaleMode = 0;
 
   // Runnable used to run code on an interval to update counters and seeker
   private final Runnable mUpdateCounters =
