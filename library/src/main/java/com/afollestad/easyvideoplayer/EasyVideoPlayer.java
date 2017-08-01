@@ -76,6 +76,9 @@ public class EasyVideoPlayer extends FrameLayout
   public static final int RIGHT_ACTION_NONE = 3;
   public static final int RIGHT_ACTION_SUBMIT = 4;
   public static final int RIGHT_ACTION_CUSTOM_LABEL = 5;
+  public static final int VIDEO_SCALE_FIT = 0;
+  public static final int VIDEO_SCALE_FILL = 1;
+
   private static final int UPDATE_INTERVAL = 100;
 
   public EasyVideoPlayer(Context context) {
@@ -138,6 +141,7 @@ public class EasyVideoPlayer extends FrameLayout
   private int mThemeColor = 0;
   private boolean mAutoFullscreen = false;
   private boolean mLoop = false;
+  private int mScaleMode = 1;
 
   // Runnable used to run code on an interval to update counters and seeker
   private final Runnable mUpdateCounters =
@@ -253,6 +257,10 @@ public class EasyVideoPlayer extends FrameLayout
   @Override
   public void setProgressCallback(@NonNull EasyVideoProgressCallback callback) {
     mProgressCallback = callback;
+  }
+
+  public void setScaleMode(int scaleMode) {
+    this.mScaleMode = scaleMode;
   }
 
   @Override
@@ -977,12 +985,12 @@ public class EasyVideoPlayer extends FrameLayout
     final double aspectRatio = (double) videoHeight / videoWidth;
     int newWidth, newHeight;
 
-    if (viewHeight > (int) (viewWidth * aspectRatio)) {
+    if (viewHeight > (int) (viewWidth * aspectRatio) && mScaleMode == VIDEO_SCALE_FIT ||
+          viewHeight < (int) (viewWidth * aspectRatio) && mScaleMode == VIDEO_SCALE_FILL) {
       // limited by narrow width; restrict height
       newWidth = viewWidth;
       newHeight = (int) (viewWidth * aspectRatio);
     } else {
-      // limited by short height; restrict width
       newWidth = (int) (viewHeight / aspectRatio);
       newHeight = viewHeight;
     }
