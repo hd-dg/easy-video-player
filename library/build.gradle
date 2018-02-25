@@ -33,5 +33,3 @@ dependencies {
     compile 'me.zhanghai.android.materialprogressbar:library:' + versions.materialProgressBar
     compile 'com.android.support:appcompat-v7:' + versions.supportLib
 }
-
-apply from: 'https://raw.githubusercontent.com/afollestad/aidanfollestad.com/master/android-lib-release.gradle'
